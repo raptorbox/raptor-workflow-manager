@@ -11,6 +11,11 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "node-red": "^0.17.5",
-    "passport-token": "^0.2.0"
+    "passport-token": "^0.2.0",
+    "raptor-sdk": "^4.3.29",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0"
   }
 }
