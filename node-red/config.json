@@ -1,6 +1,6 @@
 {
     "raptor": {
-        "url": "raptor.local",
+        "url": "http://raptor.local",
         "username": "admin",
         "password": "admin"
     }
