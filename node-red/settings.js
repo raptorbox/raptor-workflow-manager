@@ -109,7 +109,7 @@ module.exports = {
     // -----------------
     // To password protect the Node-RED editor and admin API, the following
     // property can be used. See http://nodered.org/docs/security.html for details.
-    adminAuth: require('./user-auth.js'),
+    adminAuth: require('./login'),
 
     // To password protect the node-defined HTTP endpoints (httpNodeRoot), or
     // the static content (httpStatic), the following properties can be used.
@@ -215,7 +215,7 @@ module.exports = {
             // debug - record information which is more verbose than info + info + warn + error + fatal errors
             // trace - record very detailed logging + debug + info + warn + error + fatal errors
             // off - turn off all logging (doesn't affect metrics or audit)
-            level: "info",
+            level: 'info',
             // Whether or not to include metric events in the log output
             metrics: false,
             // Whether or not to include audit events in the log output
