@@ -2,36 +2,20 @@ version: '2'
 
 services:
 
-  proxy:
-    image: traefik
-    command: --web --docker --docker.watch --docker.domain=localhost --logLevel=DEBUG --entryPoints="Name:http Address::80"
-    networks:
-      - redzilla
-      - webproxy
-    ports:
-      - "80:80"
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/null:/traefik.toml
-
   redzilla:
-    image: opny/redzilla
+    image: opny/redzilla:latest
     networks:
       - redzilla
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/data
-    labels:
-      - "traefik.backend=redzilla"
-      - "traefik.port=3000"
-      - "traefik.frontend.entryPoints=http"
+    ports:
+      - 3000:3000
     environment:
-      IMAGE: raptorbox/node-red
-      NETWORK: workflow_redzilla
+    #   REDZILLA_IMAGE: raptorbox/node-red
+      REDZILLA_NETWORK: raptorworkflowmanager_redzilla
+      REDZILLA_DOMAIN: workflow.localhost
 
 networks:
   redzilla:
-    driver: bridge
-  webproxy:
     driver: bridge
