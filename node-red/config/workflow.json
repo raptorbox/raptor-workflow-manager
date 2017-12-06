@@ -1,0 +1,8 @@
+{
+    "logLevel": "debug",
+    "raptor": {
+        "url": "http://raptor.local",
+        "username": "admin",
+        "password": "admin"
+    }
+}

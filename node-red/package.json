@@ -4,18 +4,25 @@
   "description": "",
   "main": "settings.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha test/*.test.js",
+    "start": "node index.js",
+    "dev": "LOG_LEVEL=debug ./node_modules/nodemon/bin/nodemon.js index.js"
   },
   "author": "",
   "license": "Apache2",
   "dependencies": {
     "bluebird": "^3.5.1",
     "node-red": "^0.17.5",
+    "passport-custom": "^1.0.5",
     "passport-token": "^0.2.0",
-    "raptor-sdk": "^4.3.29",
+    "raptor-sdk": "^5.0.4",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "eslint": "^4.12.1"
+    "eslint": "^4.12.1",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.5"
   }
 }
