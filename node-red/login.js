@@ -37,18 +37,14 @@ module.exports = {
     users: function(username) {
         return raptor.Auth().login()
             .then(() => cache.get(username).then((c) => {
-
                 if (!c) {
                     return Promise.resolve(null)
                 }
-
                 return Promise.resolve(c.user)
             }))
             .catch((e) => {
-
                 log.error('User lookup failed: %s', e.message)
                 log.debug(e)
-
                 return Promise.resolve(null)
             })
     },

@@ -39,8 +39,8 @@ const middleware = function(req, res, next) {
 const strategy = (req, callback) => {
     return check(req)
         .then((u) => {
-            console.warn(u)
-            callback(null, u)
+            req.raptorUser = u
+            callback(null, u.username)
         })
         .catch((err) => callback(err, null))
 }
