@@ -35,21 +35,22 @@ const start = () => {
 
     const passport = require('passport')
     const CustomStrategy = require('passport-custom')
+
+    app.use(passport.initialize())
     passport.use('nonce', new CustomStrategy(nonce.strategy))
 
     passport.serializeUser(function(user, done) {
-        done(null, user)
+        done(null, JSON.stringify(user))
     })
 
     passport.deserializeUser(function(user, done) {
-        done(null, user)
+        done(null, JSON.parse(user))
     })
 
-    app.get('/nonce', passport.authenticate('nonce', { failureRedirect: '/' }),
+    app.get('/nonce', passport.authenticate('nonce', { failureRedirect: '/fail' }),
         function(req, res) {
-            res.redirect('/')
+            res.redirect('/?access_token=' + req.user.tokens.accessToken)
         })
-
 
     app.use(function(err, req, res, next) {
 

@@ -1,7 +1,9 @@
 
 const log = require('./logger')
 const config = require('./config')
+const request = require('request-promise')
 const Raptor = require('raptor-sdk')
+const Tokens = require('node-red/red/api/auth/tokens')
 
 const check = (req) => {
 
@@ -37,12 +39,14 @@ const middleware = function(req, res, next) {
 }
 
 const strategy = (req, callback) => {
-    return check(req)
-        .then((u) => {
-            req.raptorUser = u
-            callback(null, u.username)
+    check(req).then((u) => {
+        req.raptorUser = u
+        const user = { username: u.username, permissions: ['*'] }
+        Tokens.create(user.username,'node-red-editor', user.permissions).then(function(tokens) {
+            user.tokens = tokens            
+            callback(null, user)
         })
-        .catch((err) => callback(err, null))
+    }).catch((err) => callback(err, null))
 }
 
 module.exports = { middleware, strategy }

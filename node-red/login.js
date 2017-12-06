@@ -38,7 +38,18 @@ module.exports = {
         return raptor.Auth().login()
             .then(() => cache.get(username).then((c) => {
                 if (!c) {
-                    return Promise.resolve(null)
+                    return raptor.Admin().User().list({ username })
+                        .then((pager) => {
+                            if (pager.getContent().length === 1) {
+                                return cache.set(username, {
+                                    user: {
+                                        username,
+                                        permissions: '*'
+                                    }
+                                }).then((c) => Promise.resolve(c.user))
+                            }
+                            return Promise.resolve(null)
+                        })
                 }
                 return Promise.resolve(c.user)
             }))
@@ -49,6 +60,7 @@ module.exports = {
             })
     },
     authenticate: function(username, password) {
+        console.warn('authenticate', username, password)
         return raptor.Auth().login().then(()=> {
             const r = new Raptor({
                 username, password,

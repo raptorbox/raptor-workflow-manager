@@ -6,7 +6,7 @@ const request = require('request-promise')
 
 logger.level = 'debug'
 
-const baseUrl = 'http://test1.workflow.localhost:1880'
+const baseUrl = 'http://test1.workflow.localhost:1880/nonce'
 
 const client = () => {
     return require('../raptor').client()
