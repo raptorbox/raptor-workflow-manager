@@ -75,7 +75,9 @@ module.exports = {
 
     // Node-RED scans the `nodes` directory in the install directory to find nodes.
     // The following property can be used to specify an additional directory to scan.
-    //nodesDir: '/home/nol/.node-red/nodes',
+    // nodesDir: '/home/nol/.node-red/nodes',
+
+    userDir: './data',
 
     // By default, the Node-RED UI is available at http://localhost:1880/
     // The following property can be used to specify a different root path.
@@ -158,12 +160,7 @@ module.exports = {
     // The following property can be used to add a custom middleware function
     // in front of all http in nodes. This allows custom authentication to be
     // applied to all http in nodes, or any other sort of common request processing.
-    //httpNodeMiddleware: function(req,res,next) {
-    //    // Handle/reject the request, or pass it on to the http in node by calling next();
-    //    // Optionally skip our rawBodyParser by setting this to true;
-    //    //req.skipRawBodyParser = true;
-    //    next();
-    //},
+    // httpNodeMiddleware: require('./nonce').middleware,
 
     // The following property can be used to verify websocket connection attempts.
     // This allows, for example, the HTTP request headers to be checked to ensure

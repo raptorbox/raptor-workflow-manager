@@ -67,7 +67,7 @@ const start = () => {
     })
 
     return new Promise(function(resolve, reject) {
-        server.listen(config.listen, function(err) {
+        server.listen(config.listen || settings.uiPort || 1880, function(err) {
             if(err) reject(err)
             resolve()
         })
