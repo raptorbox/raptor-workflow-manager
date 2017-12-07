@@ -13,13 +13,18 @@ services:
     ports:
       - 3000:3000
     environment:
+      REDZILLA_LOGLEVEL: debug
       REDZILLA_IMAGE: raptorbox/node-red
       REDZILLA_NETWORK: raptorworkflowmanager_redzilla
       REDZILLA_DOMAIN: workflow.localhost
+
+    extra_hosts:
+      - "raptor.local:172.16.238.1"
+
 
 networks:
   redzilla:
     driver: bridge
   raptor:
     external:
-      name: raptor_raptor_net
+      name: raptor_raptor_test
