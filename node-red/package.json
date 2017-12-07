@@ -5,7 +5,7 @@
   "main": "settings.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/*.test.js",
-    "start": "node index.js",
+    "start": "node bin/cli.js",
     "dev": "LOG_LEVEL=debug ./node_modules/nodemon/bin/nodemon.js index.js"
   },
   "author": "",

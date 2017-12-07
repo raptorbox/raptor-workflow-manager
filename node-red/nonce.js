@@ -1,25 +1,21 @@
 
 const log = require('./logger')
-const config = require('./config')
-const request = require('request-promise')
-const Raptor = require('raptor-sdk')
+const raptorClient = require('./raptor')
 const Tokens = require('node-red/red/api/auth/tokens')
 
 const check = (req) => {
 
-    if (!req.query.nonce) {
+    const nonce = req.query.nonce
+    if (!nonce) {
         return Promise.resolve(null)
     }
 
-    const raptor = new Raptor({
-        url: config.raptor.url,
-        token: req.query.nonce
-    })
-
-    return raptor.Auth().login().then(() => {
-        const u = raptor.Auth().getUser()
-        log.debug('[nonce] Valid nonce for %s', u.username)
-        return Promise.resolve(u)
+    return raptorClient.client().then((raptor) => {
+        // req.query.nonce
+        return raptor.Admin().Token().check(nonce).then((u) => {
+            log.debug('[nonce] Valid nonce for %s', u.username)
+            return Promise.resolve(u)
+        })
     }).catch((err) => {
         const e = new Error(err)
         e.code = 401
@@ -29,24 +25,43 @@ const check = (req) => {
 
 }
 
-const middleware = function(req, res, next) {
-    return check(req)
-        .then((u) => {
-            req.raptorUser = u
-            next()
-        })
-        .catch((err) => next(err))
-}
-
 const strategy = (req, callback) => {
     check(req).then((u) => {
         req.raptorUser = u
-        const user = { username: u.username, permissions: ['*'] }
-        Tokens.create(user.username,'node-red-editor', user.permissions).then(function(tokens) {
-            user.tokens = tokens            
+
+
+
+        const perms = [
+            ...new Set(u.roles
+                .map((role) => role.permissions)
+                .reduce((a, b) => a.push(...b) >= 0 && a, []))
+        ]
+
+        const permissions = []
+
+        const hasPerm = (list) => {
+            return list.filter((p) => perms.indexOf(p)).length > 0
+        }
+
+        if (hasPerm(['admin', 'admin_workflow', 'service'])) {
+            permissions.push('*')
+        }
+
+        // 'flows.read', 'nodes.read', 'credentials.read', 'settings.read', 'library.read'
+
+        if(hasPerm(['read_workflow'])) {
+            permissions.push('read')
+        }
+        if(hasPerm(['write_workflow'])) {
+            permissions.push('write')
+        }
+
+        const user = { username: u.username, permissions }
+        Tokens.create(user.username, 'node-red-editor', user.permissions).then(function(tokens) {
+            user.tokens = tokens
             callback(null, user)
         })
     }).catch((err) => callback(err, null))
 }
 
-module.exports = { middleware, strategy }
+module.exports = { strategy }

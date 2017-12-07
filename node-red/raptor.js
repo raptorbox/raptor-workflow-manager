@@ -1,8 +1,5 @@
 
-const assert = require('assert')
 const Raptor = require('raptor-sdk')
-const logger = require('winston')
-const request = require('request-promise')
 const config = require('./config')
 
 const client = () => {
@@ -11,4 +8,12 @@ const client = () => {
         .then(() => Promise.resolve(r))
 }
 
-module.exports = { client }
+const generateToken = () => {
+    return client().then((r) => r.Admin().Token().create({
+        name: 'nonce',
+        expires: (Date.now() + 2000000) / 1000,
+    }))
+}
+
+
+module.exports = { client, generateToken }

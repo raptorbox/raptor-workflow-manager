@@ -1,8 +1,9 @@
 {
+    "listen": "1880",
     "logLevel": "debug",
     "raptor": {
         "url": "http://raptor.local",
-        "username": "admin",
-        "password": "admin"
+        "username": "service",
+        "password": "s3rvice"
     }
 }

@@ -7,6 +7,8 @@ const config = require('./config')
 const log = require('./logger')
 const nonce = require('./nonce')
 
+let server
+
 const start = () => {
 
     log.level = process.env.LOG_LEVEL || config.logLevel || 'warn'
@@ -18,7 +20,7 @@ const start = () => {
     app.use('/',express.static('public'))
 
     // Create a server
-    const server = http.createServer(app)
+    server = http.createServer(app)
 
     // Create the settings object - see default settings.js file for other options
     const settings = require('./settings')
@@ -64,11 +66,25 @@ const start = () => {
         res.status(500).send('Internal Server Error')
     })
 
-    server.listen(1880)
-
-    // Start the runtime
-    RED.start()
+    return new Promise(function(resolve, reject) {
+        server.listen(config.listen, function(err) {
+            if(err) reject(err)
+            resolve()
+        })
+    }).then(() => RED.start())
 }
-module.exports = {start}
 
-start()
+const stop = () => {
+    return RED.stop()
+        .then(() => {
+            return new Promise(function(resolve, reject) {
+                server.close(function(err) {
+                    if (err) reject(err)
+                    server = null
+                    resolve()
+                })
+            })
+        })
+}
+
+module.exports = {start, stop}
