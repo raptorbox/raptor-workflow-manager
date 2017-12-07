@@ -5,18 +5,12 @@ const Tokens = require('node-red/red/api/auth/tokens')
 
 const check = (req) => {
 
-    const nonce = req.query.nonce
-    if (!nonce) {
+    const token = req.query.nonce
+    if (!token) {
         return Promise.resolve(null)
     }
 
-    return raptorClient.client().then((raptor) => {
-        // req.query.nonce
-        return raptor.Admin().Token().check(nonce).then((u) => {
-            log.debug('[nonce] Valid nonce for %s', u.username)
-            return Promise.resolve(u)
-        })
-    }).catch((err) => {
+    return raptorClient.checkToken({ token, remove: true }).catch((err) => {
         const e = new Error(err)
         e.code = 401
         e.text = 'Invalid nonce'
@@ -27,9 +21,10 @@ const check = (req) => {
 
 const strategy = (req, callback) => {
     check(req).then((u) => {
+
+        log.debug('[nonce] Valid nonce for %s', u.username)        
+
         req.raptorUser = u
-
-
 
         const perms = [
             ...new Set(u.roles

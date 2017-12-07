@@ -49,10 +49,10 @@ const start = () => {
         done(null, JSON.parse(user))
     })
 
-    app.get('/nonce', passport.authenticate('nonce', { failureRedirect: '/fail' }),
-        function(req, res) {
-            res.redirect('/?access_token=' + req.user.tokens.accessToken)
-        })
+    app.get('/nonce',
+        passport.authenticate('nonce', { failureRedirect: '/fail' }),
+        (req, res) => res.redirect('/?access_token=' + req.user.tokens.accessToken)
+    )
 
     app.use(function(err, req, res, next) {
 
