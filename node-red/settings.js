@@ -18,6 +18,8 @@
 // to make it available:
 //var fs = require("fs");
 
+const config = require('./config')
+
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
     uiPort: process.env.PORT || 1880,
@@ -77,7 +79,7 @@ module.exports = {
     // The following property can be used to specify an additional directory to scan.
     // nodesDir: '/home/nol/.node-red/nodes',
 
-    userDir: './data',
+    userDir: process.env.DATADIR || config.datadir || '/data',
 
     // By default, the Node-RED UI is available at http://localhost:1880/
     // The following property can be used to specify a different root path.

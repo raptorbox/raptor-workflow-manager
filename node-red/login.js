@@ -60,7 +60,6 @@ module.exports = {
             })
     },
     authenticate: function(username, password) {
-        console.warn('authenticate', username, password)
         return raptor.Auth().login().then(()=> {
             const r = new Raptor({
                 username, password,
