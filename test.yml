@@ -9,7 +9,8 @@ services:
       - raptor
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data:/data
+      - ./data:/app/data
+      - ./config:/app/config
     ports:
       - 3000:3000
     environment:
@@ -17,7 +18,7 @@ services:
       REDZILLA_IMAGENAME: raptorbox/node-red
       REDZILLA_NETWORK: raptorworkflowmanager_redzilla
       REDZILLA_DOMAIN: workflow.localhost
-      REDZILLA_ENVPREFIX: nodered
+      REDZILLA_ENV: NODERED
       NODERED_CONFIG: /data/config/workflow.json
 
     extra_hosts:

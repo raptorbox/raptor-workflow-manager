@@ -14,10 +14,11 @@ services:
     ports:
       - 3000:3000
     environment:
-      REDZILLA_IMAGE: raptorbox/node-red
+      REDZILLA_IMAGENAME: raptorbox/node-red
       REDZILLA_NETWORK: raptorworkflowmanager_redzilla
       REDZILLA_DOMAIN: workflow.localhost
-      REDZILLA_ENVPREFIX: nodered
+      REDZILLA_ENV: NODERED
+      NODERED_CONFIG: /data/config/workflow.json
 
 networks:
   redzilla:
