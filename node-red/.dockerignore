@@ -3,3 +3,4 @@ Dockerfile
 gen.js
 config/workflow.json
 test/
+data

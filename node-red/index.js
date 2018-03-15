@@ -17,13 +17,16 @@ const start = () => {
     const app = express()
 
     // Add a simple route for static content served from 'public'
-    app.use('/',express.static('public'))
+    app.use('/', express.static('public'))
 
     // Create a server
     server = http.createServer(app)
 
     // Create the settings object - see default settings.js file for other options
     const settings = require('./settings')
+
+    log.info('Raw settings %j', settings)
+    console.log('Raw settings %j', settings)
 
     // Initialise the runtime with a server and settings
     RED.init(server, settings)
@@ -66,12 +69,17 @@ const start = () => {
         res.status(500).send('Internal Server Error')
     })
 
+    log.info('Starting raptorbox workflow manager')
+
     return new Promise(function(resolve, reject) {
         server.listen(config.listen || settings.uiPort || 1880, function(err) {
             if(err) reject(err)
             resolve()
         })
-    }).then(() => RED.start())
+    }).then(() => RED.start()).catch((e) => {
+        log.error('Error occured: %s', e.message)
+        log.debug(e)
+    })
 }
 
 const stop = () => {

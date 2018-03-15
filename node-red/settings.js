@@ -79,7 +79,7 @@ module.exports = {
     // The following property can be used to specify an additional directory to scan.
     // nodesDir: '/home/nol/.node-red/nodes',
 
-    userDir: process.env.DATADIR || config.datadir || '/data',
+    userDir: config.datadir || process.env.DATADIR || '/data',
 
     // By default, the Node-RED UI is available at http://localhost:1880/
     // The following property can be used to specify a different root path.
