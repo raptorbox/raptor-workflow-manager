@@ -13,6 +13,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "node-red": "^0.17.5",
+    "node-red-contrib-raptor": "^5.1.0",
     "passport-custom": "^1.0.5",
     "passport-token": "^0.2.0",
     "raptor-sdk": "^5.0.18",
