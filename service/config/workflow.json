@@ -1,0 +1,10 @@
+{
+    "logLevel": "debug",
+    "raptor": {
+        "url": "http://raptor.local",
+        "tokenName": "service-default",
+        "username": "admin",
+        "password": "admin"
+    },
+    "redzilla": "http://redzilla:3000"
+}

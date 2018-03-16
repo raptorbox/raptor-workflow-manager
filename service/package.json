@@ -1,0 +1,35 @@
+{
+  "name": "workflow-api",
+  "version": "5.0.0",
+  "description": "Workflow mgmt API",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/*.test.js",
+    "start": "./bin/cli.js",
+    "test-file": "./node_modules/mocha/bin/mocha test/ --grep $@",
+    "release-major": "./node_modules/standard-version/bin/cli.js",
+    "release": "./node_modules/standard-version/bin/cli.js -- --release-as minor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raptorbox/raptor-workflow-manager.git"
+  },
+  "keywords": [
+    "iot",
+    "node-red",
+    "raptor"
+  ],
+  "author": "lcapra@fbk.eu",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "raptor-sdk": "^5.0.29",
+    "winston": "^2.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "mocha": "^5.0.4",
+    "standard-version": "^4.3.0"
+  }
+}
