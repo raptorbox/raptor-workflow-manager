@@ -22,7 +22,9 @@
   "author": "lcapra@fbk.eu",
   "license": "Apache-2.0",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "raptor-sdk": "^5.0.29",
     "winston": "^2.4.1"
