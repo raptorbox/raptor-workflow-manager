@@ -15,7 +15,6 @@ const start = () => {
 
 const stop = () => {
     return require('./app').stop()
-        .then(() => require('./db').disconnect())
         .then(() => require('./raptor').client().getClient().disconnect())
 }
 

@@ -6,5 +6,8 @@
         "username": "admin",
         "password": "admin"
     },
-    "redzilla": "http://redzilla:3000"
+    "redzilla": {
+        "url": "http://workflow.localhost:3000"
+    },
+    "port": 7475
 }
