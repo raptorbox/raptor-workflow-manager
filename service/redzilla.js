@@ -12,6 +12,10 @@ module.exports = class Redzilla {
         return await axios.get(this.url())
     }
 
+    async get(id) {
+        return await axios.get(this.url(id))
+    }
+
     async start(id) {
         return await axios.put(this.url(id))
     }
