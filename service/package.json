@@ -27,7 +27,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-promise-router": "^3.0.1",
-    "raptor-sdk": "^5.0.29",
+    "raptor-sdk": "^5.0.30",
     "winston": "^2.4.1"
   },
   "devDependencies": {
