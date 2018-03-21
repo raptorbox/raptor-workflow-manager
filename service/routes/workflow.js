@@ -18,6 +18,14 @@ router.get('/', authz(), async function(req, res) {
 })
 
 /**
+ * Check permissions
+ */
+router.post('/check', authz(), async function(req, res) {
+    logger.debug('Check: %j', req.body)
+    res.status(200)
+})
+
+/**
  * Get an instance
  */
 router.get('/:id', authz(), async function(req, res) {

@@ -1,0 +1,15 @@
+workflow.raptor.local {
+
+    proxy /workflow http://workflow:7475/workflow {
+      transparent
+    }
+
+    proxy / http://redzilla:3000 {
+      websocket
+      transparent
+    }
+
+    errors stdout
+    log stdout
+
+}

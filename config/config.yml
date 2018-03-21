@@ -1,0 +1,21 @@
+Network: redzilla
+APIPort: :3000
+Domain: workflow.localhost
+ImageName: raptorbox/node-red:latest
+StorePath: ./data/store
+InstanceDataPath: ./data/instances
+InstanceConfigPath: ./data/config
+LogLevel: debug
+EnvPrefix: NODERED
+Autostart: false
+
+#none or http
+AuthType: http
+
+#HTTP based auth / ACL will performa a POST request to an endpoint and allow on 2xx or deny on other responses
+#Body is a go template, used only in case of POST or GET
+AuthHttpMethod: POST
+AuthHttpUrl: http://workflow:7475/workflow/check
+# This header will be forwarded to the http service eg Authorization: Bearer 42
+AuthHttpHeader: Authorization
+AuthHttpBody: "{ \"name\": \"{{.Name}}\", \"url\": \"{{.Url}}\", \"method\": \"{{.Method}}\" }"
