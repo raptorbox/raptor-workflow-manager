@@ -2,18 +2,18 @@ version: '2'
 
 services:
 
-  workflow:
-    image: raptorbox/workflow:latest
-    networks:
-      - redzilla
-      - raptor
-    volumes:
-      - ./data:/app/data
-      - ./config:/app/config
-    ports:
-      - 7475:7475
-    # environment:
-    #   NODERED_CONFIG: /data/config/workflow.json
+  # workflow:
+  #   image: raptorbox/workflow:latest
+  #   networks:
+  #     - redzilla
+  #     - raptor
+  #   volumes:
+  #     - ./data:/app/data
+  #     - ./config:/app/config
+  #   ports:
+  #     - 7475:7475
+  #   # environment:
+  #   #   NODERED_CONFIG: /data/config/workflow.json
 
   redzilla:
     image: opny/redzilla:latest
@@ -40,7 +40,7 @@ services:
         - ./data/certs:/etc/certs
         - ./config/Caddyfile:/etc/Caddyfile
     ports:
-        - 80:80
+        - 8080:8080
     logging:
       driver: json-file
       options:

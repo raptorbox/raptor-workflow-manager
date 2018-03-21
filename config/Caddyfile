@@ -1,8 +1,6 @@
-workflow.raptor.local {
+:8080 {
 
-    proxy /workflow http://workflow:7475/workflow {
-      transparent
-    }
+    tls off
 
     proxy / http://redzilla:3000 {
       websocket
